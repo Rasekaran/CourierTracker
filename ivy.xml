@@ -1,0 +1,48 @@
+
+<ivy-module version="2.0">
+    <info organisation="org.apache" module="Jupiter"/>
+	
+	 <configurations>
+        <conf name="compile" description="Required to compile the application."/>
+        <conf name="sources" description="Source code"/>
+        <conf name="javadoc" description="Javadocs"/>
+		<conf name="courier-build" description="Jars used by Neutrino for compilation"/>
+		<conf name="courier-run" description="Jars used by Neutrino during runtime"/>
+        <conf name="courier-ant" description="Jars used by Ant for building Neutrino"/>
+		<conf name="tomcat" description="Jars used by Tomcat"/>
+    </configurations>
+	
+    <dependencies>
+		
+		
+		<!--MySQL Connector-->
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.38" conf="courier-build->default"/>
+        
+        <!--Spring framework-->
+		<dependency org="org.springframework" name="spring-aop" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework" name="spring-beans" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework" name="spring-context" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+		<dependency org="org.springframework" name="spring-context-support" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework" name="spring-core" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework" name="spring-expression" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+		<dependency org="org.springframework" name="spring-jdbc" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+		<dependency org="org.springframework" name="spring-tx" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework" name="spring-web" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework" name="spring-webmvc" rev="4.2.4.RELEASE" conf="courier-build->default"/>
+        
+        <!--Spring security-->
+        <dependency org="org.springframework.security" name="spring-security-acl" rev="3.1.0.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-config" rev="3.1.0.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-core" rev="3.1.0.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-taglibs" rev="3.1.0.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-web" rev="3.1.0.RELEASE" conf="courier-build->default"/>
+        
+        <!-- Jackson json -->
+        <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.3.0" conf="courier-build->default"/>
+        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.3.0" conf="courier-build->default"/>
+        
+        <!-- Cross domain dependancy - not sure -->
+        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.3.2" conf="courier-build->default"/>
+        
+    </dependencies>
+</ivy-module>

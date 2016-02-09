@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE project [
+    <!ENTITY pathfile SYSTEM "paths_online.xml">
+]>
+
+<project  name="CourierTracking" basedir="." default="clean-deploy-all"
+	xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    &pathfile;
+    <!-- 
+        Expects a file to be included in the same path with name 
+                
+            paths_online.xml
+                
+        The contents of the file must include the following and the correct paths.
+        This file is not tracked on Git and is for using custom paths on different OSs.
+        
+        Example for Windows 
+        <property name="tomcat.dir" value="C:\blazeds\tomcat"/>
+		
+        Example for Mac
+        <property name="tomcat.dir" value="/server/tomcat" /> 
+    -->
+
+	<property name="ant.home.dir" value="${user.home}/.ant" />
+	
+    <property name="tomcat.lib.dir" value="${tomcat.dir}/lib/" />
+    
+    <property name="context.root" value="couriertracking" />
+    <property name="context.dir" value="${tomcat.dir}/webapps/${context.root}" />
+    <property name="context.lib.dir" value="${context.web.dir}/lib/" />
+    
+	<property name="source.files.dir" value="src" /> 
+    <property name="source.lib.dir" value="lib" />   
+    <property name="source.resources.dir" value="./resources/" />
+	
+	<property name="test.sources.dir" value="tests" />
+	<property name="test.classes.dir" value="bin/tests/" />
+	<property name="test.reports.dir" value="${test.sources.dir}/reports/" />
+	
+	<property name="build.root.dir" value="bin/${context.root}" />
+	
+	<property name="build.dir" value="${build.root.dir}/WEB-INF/classes" /> 
+	<property name="deploy.dir" value="${context.web.dir}/classes" />
+    
+	 <!--
+        Fileset definition for lib folder
+    -->
+    <fileset id="source.lib.list" dir="${source.lib.dir}/">
+        <include name="**/*.jar" />
+    </fileset>    
+    
+    <!-- 
+		Path for the lib folder
+	-->
+	<path id="source.lib.path">
+		<fileset refid="source.lib.list" />        
+	</path>   
+
+	<!--
+		Dependency management task for Ivy. 
+		This downloads all dependencies required for Neutrino. 
+	-->
+	<target name="resolve" description="--> retreive dependencies with ivy">
+    
+		<!--Download into tomcat libs directory-->
+        <ivy:retrieve conf="tomcat" pattern="${tomcat.lib.dir}/[artifact].[ext]"/>	
+        		
+        <!--Download into lib folder as these are needed for compilation-->
+		<ivy:retrieve conf="courier-build" pattern="${source.lib.dir}/[artifact].[ext]"/> 
+        
+        <!--Directly download into /context/lib folder as these are only needed during runtime-->
+        <ivy:retrieve conf="courier-run" pattern="${context.lib.dir}/[artifact].[ext]"/>        
+	</target>
+
+    <!--
+		Compile source code for Neutrino
+	-->
+	<target name="compile-java" depends="resolve">
+        
+        <!--compile source into build dir-->
+		<mkdir dir="${build.root.dir}"/>
+		<mkdir dir="${build.root.dir}/WEB-INF"/>
+        <mkdir dir="${build.dir}"/>
+		<javac debug="on" source="1.8" target="1.8" srcdir="${source.files.dir}" deprecation="on" destdir="${build.dir}" includeantruntime="false">
+			<classpath refid="source.lib.path" />
+		</javac>
+
+	</target>
+	
+	<target name="build">
+		
+       <!--Copy Jars into Neutrino context lib folder-->
+        <mkdir dir="${build.root.dir}/"/>
+        <copydir dest="${build.root.dir}/WEB-INF" src="WEB-INF" />
+        
+		<antcall target="compile-java" />
+		
+		<copydir dest="${build.root.dir}/WEB-INF/lib" src="${source.lib.dir}" />
+	</target>
+    
+	<target name="clean-deploy-all">
+        <antcall target="clean"/>
+		<antcall target="build"/>
+        <antcall target="deploy"/>
+    </target>
+    <!--
+        Copies all classes in build location into deploy location. 
+        This task does not compile or run tests.
+    -->
+    <target name="deploy" depends="compile-java">
+        <mkdir dir="${context.dir}"/>
+        <copy todir="${context.dir}" preservelastmodified="true">
+			<fileset dir="${build.root.dir}">
+				<include name="**/*.*" />
+			</fileset>            
+		</copy>
+    </target>
+	
+	<!--
+		Clean the ivy cache and lib folder
+	-->
+	<target name="clean-ivy">
+		<ivy:cleancache/>
+	</target>
+    
+    <!--
+		Clean build dir
+	-->
+	<target name="clean">
+		<delete dir="${build.root.dir}"/>
+		<delete dir="${context.dir}"/>
+		<delete dir="${source.lib.dir}"/>
+		<mkdir dir="${source.lib.dir}"/>
+	</target>
+    
+	<!--
+		Cleans the following locations :
+            - Ivy Cache
+            - Libs dir
+            - Build dir
+            - Deploy dir
+	-->	
+	<target name="clean-all">
+	   <antcall target="clean-ivy"/>
+       <antcall target="clean-libs"/>   
+       <antcall target="clean-build"/>
+       <antcall target="clean-deploy"/>
+	</target>
+	
+	<!--
+		Clean context. 
+		Deletes everything in the context root and subdirs.
+	-->
+	<target name="clean-context">
+	   <delete dir="${context.dir}"/>
+	</target>
+	
+
+</project>
