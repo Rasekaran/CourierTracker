@@ -2,7 +2,7 @@ package com.courier.tracking.model;
 
 import java.util.Date;
 
-public class User extends Person {
+public class Staff extends Person {
 
 	private int id;
 	private Date dob;
