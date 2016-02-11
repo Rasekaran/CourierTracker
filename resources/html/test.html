@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+function myFunction() {
+
+	var person = {
+		ssn : "TestDataST",
+		fName : "Test Data",
+		lName : "Test Data",
+		street : "Test Data",
+		city : "Test Data",
+		country : "Test Data",
+		postalCode : "Test Data"
+	}
+	$.ajax({
+	  method: "POST",
+	  url: 'http://localhost:8080/couriertracking/person/create',
+	  data: JSON.stringify( person ),
+	  dataType: 'json',
+	  contentType: "application/json; charset=utf-8",
+	})
+	.done(function(data) {
+	  alert(data)
+	})
+	.fail(function() {
+	  alert("Ajax failed to fetch data")
+	})
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+
+function myFunction2() {
+
+	var person = {
+		ssn : "TestDataST",
+		fName : "Test Data",
+		lName : "Test Data",
+		street : "Test Data",
+		city : "Test Data",
+		country : "Test Data",
+		postalCode : "Test Data"
+	}
+	$.ajax({
+	  method: "POST",
+	  url: 'http://localhost:8080/couriertracking/helloWorld/greeting/test2',
+	  data: JSON.stringify( person ),
+	  dataType: 'json',
+	  contentType: "application/json; charset=utf-8",
+	})
+	.done(function(data) {
+	  alert(data)
+	})
+	.fail(function() {
+	  alert("Ajax failed to fetch data")
+	})
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+
+function myFunction3() {
+
+	$.ajax({
+	  method: "GET",
+	  url: 'http://localhost:8080/couriertracking/person/TestDataST',
+	  data: "",
+	  dataType: 'json',
+	  contentType: "application/json; charset=utf-8",
+	})
+	.done(function(data) {
+	  alert(data)
+	})
+	.fail(function() {
+	  alert("Ajax failed to fetch data")
+	})
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+
+function addStaff() {
+
+	var staff = {
+		ssn : "TestStaff2",
+		fName : "Test Data",
+		lName : "Test Data",
+		street : "Test Data",
+		city : "Test Data",
+		country : "Test Data",
+		postalCode : "Test Data",
+		dob : new Date(Date.parse("1986-04-30")),
+		branchID : 1,
+		joinDate : new Date(Date.parse("1986-04-30")),
+		designation : "Manager"
+	}
+	$.ajax({
+	  method: "POST",
+	  url: 'http://localhost:8080/couriertracking/staff/create',
+	  data: JSON.stringify( staff ),
+	  dataType: 'json',
+	  contentType: "application/json; charset=utf-8",
+	})
+	.done(function(data) {
+	  alert(data)
+	})
+	.fail(function() {
+	  alert("Ajax failed to fetch data")
+	})
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+
+function getStaff() {
+
+	$.ajax({
+	  method: "GET",
+	  url: 'http://localhost:8080/couriertracking/staff/TestStaff2',
+	  data: "",
+	  dataType: 'json',
+	  contentType: "application/json; charset=utf-8",
+	})
+	.done(function(data) {
+	  alert(data)
+	})
+	.fail(function() {
+	  alert("Ajax failed to fetch data")
+	})
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+</script>
+</head>
+
+<body>
+
+<h1>JavaScript in Head</h1>
+
+<p id="demo">A Paragraph.</p>
+
+<button type="button" onclick="myFunction()">Try it</button>
+<button type="button" onclick="myFunction2()">Try it 2</button>
+<button type="button" onclick="myFunction3()">Try it 3</button>
+<button type="button" onclick="addStaff()">Add Staff</button>
+<button type="button" onclick="getStaff()">Get Staff</button>
+
+</body>
+</html> 
