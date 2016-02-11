@@ -10,13 +10,18 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.courier.tracking.model.Person;
+import com.courier.tracking.service.PersonService;
 
 @Controller
 @CrossOrigin( allowedHeaders="*", origins="*", value="*", methods={RequestMethod.GET, RequestMethod.POST} )
@@ -120,5 +125,14 @@ public class HelloWorldController {
 //             httpclient.getConnectionManager().shutdown();
 //          }
     }
+	
+	@Autowired
+	private PersonService personService;
+	
+	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json" )
+	public @ResponseBody String createPerson( @RequestBody Person person ){
+		
+		return personService.createPerson( person );
+	}
 	
 }

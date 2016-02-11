@@ -15,6 +15,18 @@
 		<property name="password" value="password" />
 	</bean>
 	
+	<bean id="personDAO" class="com.courier.tracking.dao.PersonDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="personService" class="com.courier.tracking.service.PersonService">
+		<property name="personDAO" ref="personDAO" />
+	</bean>
+	
+	<bean id="personController" class="com.courier.tracking.controller.PersonController">
+		<property name="personService" ref="personService" />
+	</bean>
+	
 	<bean id="helloWorldController" class="com.javacodegeeks.snippets.enterprise.HelloWorldController">
 	</bean>
 
