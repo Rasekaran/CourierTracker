@@ -1,11 +1,20 @@
 package com.courier.tracking.model;
 
+import com.cinergix.mapper.annotation.ResultField;
+import com.cinergix.mapper.annotation.ResultMapped;
+
+@ResultMapped
 public class Branch {
 
+	@ResultField( "branch_id" )
 	private int id;
+	@ResultField( "street" )
 	private String street;
+	@ResultField( "city" )
 	private String city;
+	@ResultField( "country" )
 	private String country;
+	@ResultField( "postal_code" )
 	private String postalCode;
 	public int getId() {
 		return id;
