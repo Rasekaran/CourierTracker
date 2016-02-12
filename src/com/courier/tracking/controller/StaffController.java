@@ -22,15 +22,30 @@ public class StaffController {
 	@Autowired
 	private StaffService staffService;
 	
+	
+	@RequestMapping(value = "/login/create", method = RequestMethod.POST, produces = "application/json" )
+	public @ResponseBody String createLogin( @RequestBody Staff staff ){
+		
+		return staffService.createStaffLogin( staff );
+		
+	}
+	
+	@RequestMapping(value = "/login/{username}", method = RequestMethod.GET, produces = "application/json" )
+	public @ResponseBody Staff getStaffLogin( @PathVariable String username ){
+		
+		return staffService.getStaffLogin( username );
+		
+	}
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json" )
-	public @ResponseBody String createPerson( @RequestBody Staff staff ){
+	public @ResponseBody String createStaff( @RequestBody Staff staff ){
 		
 		return staffService.createStaff( staff );
 		
 	}
 	
 	@RequestMapping(value = "/{ssn}", method = RequestMethod.GET, produces = "application/json" )
-	public @ResponseBody Staff createPerson( @PathVariable String ssn ){
+	public @ResponseBody Staff getStaff( @PathVariable String ssn ){
 		
 		return staffService.getStaff( ssn );
 		

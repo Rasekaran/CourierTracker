@@ -27,7 +27,7 @@ import com.cinergix.mapper.transformer.annotation.ResultTransformer;
 import com.cinergix.mapper.transformer.annotation.ResultTransformerClass;
 
 /**
- * This class provides main functionalities of “ResultObjectMapper”.
+ * This class provides main functionalities of <code>ResultObjectMapper</code>.
  * <code>ObjectMapper</code> converts <code>ResultSet</code> data into java objects. To do this 
  * conversion Java classes should be annotated with <code>ResultMapped</code> in class level. To 
  * assign the column data to a property of a mapped object that property should be annotated with 
@@ -220,7 +220,7 @@ public class ObjectMapper<T> {
 			return;
 		}
 		
-		if( !field.getDeclaringClass().equals( createdObject.getClass() ) ) {
+		if( !field.getDeclaringClass().isAssignableFrom( createdObject.getClass() ) ) {
 			throw new PropertyAccessException( "Can not assign value to a field " + field.getName() + " of Type " + field.getDeclaringClass().getName() + " to instance of type " + createdObject.getClass().getName() );
 		}
 		
@@ -311,21 +311,44 @@ public class ObjectMapper<T> {
 		
 		HashMap<Field, String> map = new HashMap<Field, String>();
 
-		for( Field field : dataClass.getDeclaredFields() ){
+//		for( Field field : dataClass.getDeclaredFields() ){
+//			
+//			ResultField resultAnnotation = field.getAnnotation( ResultField.class );
+//			if( resultAnnotation != null && resultAnnotation.value() != null ){
+//				
+//				for( String sqlFieldName : resultAnnotation.value() ) {
+//					
+//					if( map.get( field ) == null && checkColumnLabelExist( result, sqlFieldName ) ){
+//						map.put( field, sqlFieldName );
+//					}
+//				}
+//			}
+//		}
+		getFieldColumnMappingForGivenClass( dataClass, result, map );
 			
-			ResultField resultAnnotation = field.getAnnotation( ResultField.class );
-			if( resultAnnotation != null && resultAnnotation.value() != null ){
+		return map;
+	}
+	
+	protected void getFieldColumnMappingForGivenClass( Class dataClass, ResultSet result, HashMap<Field, String> map ) throws SQLException{
+		
+		if( !dataClass.equals( Object.class ) ) {
+			
+			this.getFieldColumnMappingForGivenClass( dataClass.getSuperclass(), result, map );
+			
+			for( Field field : dataClass.getDeclaredFields() ){
 				
-				for( String sqlFieldName : resultAnnotation.value() ) {
+				ResultField resultAnnotation = field.getAnnotation( ResultField.class );
+				if( resultAnnotation != null && resultAnnotation.value() != null ){
 					
-					if( map.get( field ) == null && checkColumnLabelExist( result, sqlFieldName ) ){
-						map.put( field, sqlFieldName );
+					for( String sqlFieldName : resultAnnotation.value() ) {
+						
+						if( map.get( field ) == null && checkColumnLabelExist( result, sqlFieldName ) ){
+							map.put( field, sqlFieldName );
+						}
 					}
 				}
 			}
 		}
-			
-		return map;
 	}
 	
 	protected HashMap<Field, ObjectMapper> getFieldMapperMapping( Class dataClass, ResultSet result ) throws SQLException {

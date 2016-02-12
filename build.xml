@@ -109,7 +109,7 @@
         Copies all classes in build location into deploy location. 
         This task does not compile or run tests.
     -->
-    <target name="deploy" depends="compile-java">
+    <target name="deploy">
         <mkdir dir="${context.dir}"/>
         <copy todir="${context.dir}" preservelastmodified="true">
 			<fileset dir="${build.root.dir}">

@@ -7,24 +7,6 @@ import com.cinergix.mapper.annotation.ResultMapped;
 
 @ResultMapped
 public class Staff extends Person {
-
-//	//------------------------
-//	//properties from Person
-//	@ResultField( "ssn" )
-//	private String ssn = "";
-//	@ResultField( "f_name" )
-//	private String fName = "";
-//	@ResultField( "l_name" )
-//	private String lName = "";
-//	@ResultField( "street" )
-//	private String street = "";
-//	@ResultField( "city" )
-//	private String city = "";
-//	@ResultField( "country" )
-//	private String country = "";
-//	@ResultField( "postal_code" )
-//	private String postalCode = "";
-//	//------------------------
 	
 	@ResultField( "staff_id" )
 	private int id;

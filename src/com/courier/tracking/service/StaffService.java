@@ -28,4 +28,25 @@ public class StaffService {
 		
 		return staffDAO.getStaff( ssn );
 	}
+	
+	public String createStaffLogin( Staff staff ){
+		
+		if( staff.getUsername().trim().equals( "" ) || staff.getUsername() == null ){
+			return "Username of the staff should not empty";
+		}
+		
+		if( staff.getPassword().trim().equals( "" ) || staff.getPassword() == null ){
+			return "Password of the staff should not empty";
+		}
+		return staffDAO.addStaffLogin( staff );
+	}
+	
+	public Staff getStaffLogin( String username ){
+		
+		if( username == null || username.trim().equals( "" ) ) {
+			return null;
+		}
+		
+		return staffDAO.getStaffLogin( username );
+	}
 }
