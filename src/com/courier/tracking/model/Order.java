@@ -27,11 +27,15 @@ public class Order {
 	@ResultField( "last_update" )
 	private String lastUpdate;
 	@ResultField( "delivery_date" )
-	private String deliveryDate;
+	private Date deliveryDate;
 	@ResultField( "delivery_status" )
 	private Boolean delivered;
 	@ResultField( "total_charge" )
 	private double totalCharges;
+	@ResultField( "type" )
+	private String type;
+	@ResultField( "description" )
+	private String description;
 	
 	
 	public int getId() {
@@ -94,10 +98,10 @@ public class Order {
 	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	public String getDeliveryDate() {
+	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
-	public void setDeliveryDate(String deliveryDate) {
+	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 	public Boolean getDelivered() {
@@ -112,7 +116,17 @@ public class Order {
 	public void setTotalCharges(double totalCharges) {
 		this.totalCharges = totalCharges;
 	}
-	
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }

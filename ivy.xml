@@ -31,11 +31,11 @@
         <dependency org="org.springframework" name="spring-webmvc" rev="4.2.4.RELEASE" conf="courier-build->default"/>
         
         <!--Spring security-->
-        <dependency org="org.springframework.security" name="spring-security-acl" rev="3.1.0.RELEASE" conf="courier-build->default"/>
-        <dependency org="org.springframework.security" name="spring-security-config" rev="3.1.0.RELEASE" conf="courier-build->default"/>
-        <dependency org="org.springframework.security" name="spring-security-core" rev="3.1.0.RELEASE" conf="courier-build->default"/>
-        <dependency org="org.springframework.security" name="spring-security-taglibs" rev="3.1.0.RELEASE" conf="courier-build->default"/>
-        <dependency org="org.springframework.security" name="spring-security-web" rev="3.1.0.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-acl" rev="4.0.1.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-config" rev="4.0.1.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-core" rev="4.0.1.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-taglibs" rev="4.0.1.RELEASE" conf="courier-build->default"/>
+        <dependency org="org.springframework.security" name="spring-security-web" rev="4.0.1.RELEASE" conf="courier-build->default"/>
         
         <!-- Jackson json -->
         <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.3.0" conf="courier-build->default"/>
@@ -43,6 +43,9 @@
         
         <!-- Cross domain dependancy - not sure -->
         <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.3.2" conf="courier-build->default"/>
+        
+        <dependency org="javax.servlet" name="jstl" rev="1.2" conf="courier-build->default"/>
+        <dependency org="javax.servlet" name="servlet-api" rev="2.5" conf="courier-build->default"/>
         
     </dependencies>
 </ivy-module>

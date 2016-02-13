@@ -4,11 +4,11 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
            http://www.springframework.org/schema/context 
-        	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
         	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/courier" />
 		<property name="username" value="root" />
@@ -53,5 +53,5 @@
                  class="org.springframework.aop.support.DefaultPointcutAdvisor">
 		<property name="pointcut" ref="customerPointcut" />
 		<property name="advice" ref="hijackBeforeMethodBeanAdvice" />
-	</bean>
+	</bean> -->
 </beans>

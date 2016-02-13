@@ -65,13 +65,13 @@
 	<target name="resolve" description="--> retreive dependencies with ivy">
     
 		<!--Download into tomcat libs directory-->
-        <ivy:retrieve conf="tomcat" pattern="${tomcat.lib.dir}/[artifact].[ext]"/>	
+        <ivy:retrieve conf="tomcat" pattern="${tomcat.lib.dir}/[artifact]-[revision].[ext]"/>	
         		
         <!--Download into lib folder as these are needed for compilation-->
-		<ivy:retrieve conf="courier-build" pattern="${source.lib.dir}/[artifact].[ext]"/> 
+		<ivy:retrieve conf="courier-build" pattern="${source.lib.dir}/[artifact]-[revision].[ext]"/> 
         
         <!--Directly download into /context/lib folder as these are only needed during runtime-->
-        <ivy:retrieve conf="courier-run" pattern="${context.lib.dir}/[artifact].[ext]"/>        
+        <ivy:retrieve conf="courier-run" pattern="${context.lib.dir}/[artifact]-[revision].[ext]"/>        
 	</target>
 
     <!--
@@ -94,6 +94,7 @@
        <!--Copy Jars into Neutrino context lib folder-->
         <mkdir dir="${build.root.dir}/"/>
         <copydir dest="${build.root.dir}/WEB-INF" src="WEB-INF" />
+		<copydir dest="${build.root.dir}/resources" src="resources" />
         
 		<antcall target="compile-java" />
 		
