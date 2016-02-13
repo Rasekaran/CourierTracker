@@ -15,6 +15,10 @@
 		<intercept-url pattern="/index" access="permitAll" />
 		<intercept-url pattern="/login**" access="permitAll" />
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/branches**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/customers**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/orders**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/staffs**" access="hasRole('ROLE_USER')" />
 		
 		
 		<form-login 
