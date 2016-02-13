@@ -45,6 +45,15 @@ public class HelloController {
 
 	}
 	
+	@RequestMapping(value = { "/customers" }, method = RequestMethod.GET)
+	public ModelAndView customersPage() {
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName( "customers" );
+		return model;
+
+	}
+	
 //	@RequestMapping({"/index", "/"})
 //	public String getWelcomePage(ModelMap model) {
 //		return "index";
