@@ -1,5 +1,6 @@
 package com.courier.tracking.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class OrderController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json" )
 	public @ResponseBody String createOrder( @RequestBody Order order ){
 		
+		order.setDelivered( false );
+		order.setPackDate( new Date() );
 		return orderService.createOrder( order );
 		
 	}

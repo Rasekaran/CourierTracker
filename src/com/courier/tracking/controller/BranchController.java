@@ -23,7 +23,7 @@ public class BranchController {
 	@Autowired
 	private BranchService branchService;
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json" )
+	@RequestMapping(value = "/create", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/json" )
 	public @ResponseBody String createBranch( @RequestBody Branch branch ) {
 		
 		return branchService.createBranch( branch );

@@ -108,27 +108,34 @@
         <div class="divPanel notop page-content">
 
             <div class="breadcrumbs">
-                <a href="index.html">Home</a> &nbsp;/&nbsp; <span>Branches</span>
+                <a href="index.html">Home</a> &nbsp;/&nbsp; <span>Orders</span>
             </div>
 
             <div class="row-fluid">
             <!--Edit Main Content Area here-->
                 <div class="span12" id="divMain">
 
-                    <h1>Branches</h1>
+                    <h1>Orders</h1>
                     <hr>
 					<!--Branch model box -->
 					<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 id="myModalLabel">Add New Branch</h3>
+                        <h3 id="myModalLabel">Add New Order</h3>
                     </div>
 					<!-- <form class="form" method="post" action=""> -->
                     <div class="modal-body">                       
 					    <!-- <input type="text" class="form-control" placeholder="Branch ID" required name="txtBrId" id="txtBrId"> -->
 						<br>
-						<input type="text" class="form-control" placeholder="Street" required name="txtStreet" id="txtStreet">
-						<input type="text" class="form-control" placeholder="City" required name="txtCity" id="txtCity">
+						<input type="text" class="form-control" placeholder="Staff id" required name="txtStaffID" id="txtStaffID">
+						<input type="text" class="form-control" placeholder="Sender SSN" required name="txtStreet" id="txtSenderSSN">
+						<input type="text" class="form-control" placeholder="Receiver SSN" required name="txtStreet" id="txtReceiverSSn">
+						<input type="text" class="form-control" placeholder="Weight" required name="txtStreet" id="txtWeight">
+						<input type="text" class="form-control" placeholder="Current Location" required name="txtStreet" id="txtCurrentLocation">
+						<input type="text" class="form-control" placeholder="Total charges" required name="txtStreet" id="txtTotalCharge">
+						<input type="text" class="form-control" placeholder="Type" required name="txtStreet" id="txtType">
+						<input type="text" class="form-control" placeholder="Description" required name="txtStreet" id="txtDescription">
+						<!--<input type="text" class="form-control" placeholder="City" required name="txtCity" id="txtCity">
 						<select class="form-control" name="cmbCountry" id="cmbCountry">
 						<option value="NULL">Country</option>
 						<option value="AFG">Afghanistan</option>
@@ -301,33 +308,42 @@
 						<option value="ZMB">Zambia</option>
 						<option value="ZWE">Zimbabwe</option>
 					</select>
-						<input type="text" class="form-control" placeholder="Postal Code" name="txtPCode" id="txtPCode">
+						<input type="text" class="form-control" placeholder="Postal Code" name="txtPCode" id="txtPCode"> -->
 						
 						
                     </div>
                     <div class="modal-footer">
                         <button class="btn " data-dismiss="modal">Close</button>
-                        <button class="btn" onclick="saveBranch()">Save</button>
+                        <button class="btn" onclick="saveOrder()">Save</button>
                     </div>
 					<!-- </form> -->
                 </div>
 
-                <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-large">Add New Branch</a>			
+                <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-large">Add New Order</a>			
 					
 					
 					<!-- End of branch model-->
 							
 					<br><br>
-					<h3>Branches Info</h3>
+					<h3>Orders Info</h3>
+					<input type="text" class="form-control" placeholder="Postal Code" name="txtPCode" id="search-order-id">
+					<button class="btn" onclick="getOrderDetails()">Find</button>
 					<table class="table table-hover">
 					  <thead style="background-color:#ccc;">
 						<tr>
-						  <th>#</th>
-						  <th>Branch ID</th>
-						  <th>Street</th>
-						  <th>City</th>
-						  <th>Country</th>
-						  <th>Postal Code</th>
+						  <th>Order ID</th>
+						  <th>Staff Id</th>
+						  <th>Sender SSN</th>
+						  <th>Receiver SSN</th>
+						  <th>Weight</th>
+						  <th>Pack date</th>
+						  <th>Curr Loc</th>
+						  <th>Last Update</th>
+						  <th>Delivery date</th>
+						  <th>Delivery status</th>
+						  <th>Total charges</th>
+						  <th>Type</th>
+						  <th>Description</th>
 						</tr>
 					  </thead>
 					  <tbody id="branch-data">
@@ -457,11 +473,11 @@
 <script src="scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="scripts/default.js" type="text/javascript"></script>
 <script>
-$(document).ready(function(){
+function getOrderDetails(){
 
 	$.ajax({
 	  method: "GET",
-	  url: 'http://localhost:8080/couriertracking/branch/all',
+	  url: 'http://localhost:8080/couriertracking/order/' + $("#search-order-id").val(),
 	  data: "",
 	  dataType: 'json',
 	  contentType: "application/json; charset=utf-8",
@@ -470,26 +486,14 @@ $(document).ready(function(){
 		
 		var trHTML="";
 		var no = 0;
-		$.each(data, function (i, item) {
-			no = no + 1;
-            trHTML += '<tr><td>' + no + '</td><td>' + item.id + '</td><td>' + item.street + '</td><td>' + item.city + '</td><td>' + item.country + '</td><td>' + item.postalCode + '</td></tr>';
-        });
+		trHTML += '<tr><td>' + data.id + '</td><td>' + data.staffID + '</td><td>' + data.senderSSN + '</td><td>' + data.receiverSSN + '</td><td>' + data.weight + '</td><td>' + data.packData + '</td><td>' + data.currentLocation + '</td><td>' + data.lastUpdate + '</td><td>' + data.deliveryDate + '</td><td>' + data.delivered + '</td><td>' + data.totalCharges + '</td><td>' + data.type + '</td><td>' + data.description  + '</td></tr>';
         $('#branch-data').append(trHTML);
 	})
 	.fail(function() {
 	  alert("Ajax failed to fetch data")
 	})
-// $.getJSON( "scripts/jsonsampledata.json", function( data ) {
-//   //var items = [];
-//   var trHTML="";
-//   $.each(data, function (i, item) {
-//             trHTML += '<tr><td>' + item.no + '</td><td>' + item.id + '</td><td>' + item.street + '</td><td>' + item.city + '</td><td>' + item.country + '</td><td>' + item.pcode + '</td></tr>';
-//         });
-//         $('#branch-data').append(trHTML);
-// });
 
-
-});
+}
 
 // var csrf_token = '${_csrf.token}';
 
@@ -498,26 +502,29 @@ $(document).ready(function(){
 //       xhr.setRequestHeader('X-CSRF-Token', csrf_token);
 //    }
 // });
+						
 
 
+function saveOrder(){
 
-function saveBranch(){
-
-	var branch = {
-		street : $('#txtStreet').val(),
-		city : $('#txtCity').val(),
-		country : $('#cmbCountry').val(),
-		postalCode : $('#txtPCode').val()
+	var order = {
+		staffID : $('#txtStaffID').val(),
+		senderSSN : $('#txtSenderSSN').val(),
+		receiverSSN : $('#txtReceiverSSn').val(),
+		totalCharges : $('#txtTotalCharge').val(),
+		weight : $('#txtWeight').val(),
+		type : $('#txtType').val(),
+		description : $('#txtDescription').val(),
 	}
 
 	$.ajax({
 	  method: "POST",
-	  url: 'http://localhost:8080/couriertracking/branch/create',
-	  data: JSON.stringify( branch ),
+	  url: 'http://localhost:8080/couriertracking/order/create',
+	  data: JSON.stringify( order ),
 	  dataType: 'json',
 	  contentType: "application/json; charset=utf-8",
 	  success:function(data) {
-         window.location.replace("http://localhost:8080/couriertracking/branches");
+         window.location.replace("http://localhost:8080/couriertracking/orders");
       }
 	})
 	// .done(function(data) {
@@ -525,7 +532,7 @@ function saveBranch(){
 	//   alert(data)
 	// })
 	.fail(function() {
-	  window.location.replace("http://localhost:8080/couriertracking/branches");
+	  window.location.replace("http://localhost:8080/couriertracking/orders");
 	})
 }
 

@@ -46,6 +46,10 @@ public class OrderDAO extends AbstractDAO {
 			ObjectMapper<Order> om = new ObjectMapper<Order>();
 			List<Order> orderList = om.mapResultSetToObject( rs, Order.class );
 			if( orderList != null && orderList.size() > 0 ) {
+				
+				if( !orderList.get( 0 ).getDelivered() ){
+					orderList.get( 0 ).setDeliveryDate( null );
+				}
 				return orderList.get( 0 );
 			} else {
 				return null;
@@ -83,6 +87,11 @@ public class OrderDAO extends AbstractDAO {
 			
 			ObjectMapper<Order> om = new ObjectMapper<Order>();
 			List<Order> orderList = om.mapResultSetToObject( rs, Order.class );
+			for( Order o : orderList ){
+				if( !o.getDelivered() ){
+					o.setDeliveryDate( null );
+				}
+			}
 			return orderList;
 			
 		} catch( SQLException e ){
@@ -118,6 +127,11 @@ public class OrderDAO extends AbstractDAO {
 			
 			ObjectMapper<Order> om = new ObjectMapper<Order>();
 			List<Order> orderList = om.mapResultSetToObject( rs, Order.class );
+			for( Order o : orderList ){
+				if( !o.getDelivered() ){
+					o.setDeliveryDate( null );
+				}
+			}
 			return orderList;
 			
 		} catch( SQLException e ){
