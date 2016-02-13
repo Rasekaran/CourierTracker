@@ -16,13 +16,22 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloController {
 
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/welcome**", "/index" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Custom Login Form");
 		model.addObject("message", "This is welcome page!");
 		model.setViewName("index");
+		return model;
+
+	}
+	
+	@RequestMapping(value = { "/branches" }, method = RequestMethod.GET)
+	public ModelAndView branchesPage() {
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName( "branches" );
 		return model;
 
 	}

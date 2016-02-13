@@ -7,11 +7,11 @@
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
 	<http auto-config="true">
-		<!-- <intercept-url pattern="/images/**" access="permitAll" />
+		<intercept-url pattern="/images/**" access="permitAll" />
 		<intercept-url pattern="/scripts/**" access="permitAll" />
 		<intercept-url pattern="/slider-images/**" access="permitAll" />
 		<intercept-url pattern="/styles/**" access="permitAll" />
-		<intercept-url pattern="/" access="permitAll" /> -->
+		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/index" access="permitAll" />
 		<intercept-url pattern="/login**" access="permitAll" />
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_USER')" />

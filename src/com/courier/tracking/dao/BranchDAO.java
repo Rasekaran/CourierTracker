@@ -66,4 +66,37 @@ public class BranchDAO extends AbstractDAO {
 		}
 		return null;
 	}
+	
+	public List<Branch> getAllBranchs( ){
+		
+		String sql = "SELECT * FROM branch";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try{
+			conn = this.getConnection();
+			stmt = conn.prepareStatement( sql );
+			rs = stmt.executeQuery();
+			
+			ObjectMapper<Branch> om = new ObjectMapper<Branch>();
+			List<Branch> branchList = om.mapResultSetToObject( rs, Branch.class );
+			return branchList;
+		} catch( SQLException e ){
+			
+			e.printStackTrace();
+			
+		}finally {
+			try{
+				
+				rs.close();
+				stmt.close();
+				conn.close();
+				
+			}catch( SQLException ex ){
+				ex.printStackTrace();
+			}
+		}
+		return null;
+	}
 }

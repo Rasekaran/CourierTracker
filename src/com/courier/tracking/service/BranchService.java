@@ -1,5 +1,7 @@
 package com.courier.tracking.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,10 @@ public class BranchService {
 	public Branch getBranch( int branchID ){
 		
 		return branchDAO.getBranch( branchID );
+	}
+	
+	public List<Branch> getAllBranchs( ){
+		
+		return branchDAO.getAllBranchs();
 	}
 }

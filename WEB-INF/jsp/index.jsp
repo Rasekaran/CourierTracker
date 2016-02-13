@@ -51,7 +51,7 @@
 							<li class="dropdown">
                             <a href="page.html" class="dropdown-toggle">Info Pages <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                            <li><a href="branches.html">Branches</a></li>
+                            <li><a href="branches">Branches</a></li>
                             <li><a href="2-column.html">Two Column</a></li>
                             <li><a href="3-column.html">Three Column</a></li>
 							<li class="dropdown">
